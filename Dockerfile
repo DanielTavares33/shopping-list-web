@@ -1,5 +1,5 @@
-# Use official Node.js image for development
-FROM node:20-alpine
+# Use latest stable Node.js Alpine image for development
+FROM node:alpine
 
 # Set working directory
 WORKDIR /app
