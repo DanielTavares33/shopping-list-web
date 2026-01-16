@@ -1,29 +1,25 @@
-import { useCategories } from "@/hooks/categoriesHook"
-import { useProducts } from "./hooks/productsHook";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ShoppingCartProvider } from "@/contexts/ShoppingCartContext";
+import { Toaster } from "@/components/ui/sonner";
+import { HomePage } from "@/pages/HomePage";
+import { CategoryProductsPage } from "@/pages/CategoryProductsPage";
+import { LoginPage } from "@/pages/LoginPage";
+import { RegisterPage } from "@/pages/RegisterPage";
 
 function App() {
-  const { categories } = useCategories();
-  const { products } = useProducts();
-
   return (
-    <>
-      <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
-        <h1 className="mb-4 text-3xl font-bold">Shopping List App</h1>
-        <div className="mb-4">
-          {categories.map((category) => (
-            <div key={category.id} className="mb-2">
-              <span className="text-lg">{category.name}</span>
-            </div>
-          ))}
-          {products.map((product) => (
-            <div key={product.id} className="mb-2">
-              <span className="text-lg">{product.name}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </>
-  )
+    <ShoppingCartProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/category/:categoryId" element={<CategoryProductsPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+        <Toaster />
+      </BrowserRouter>
+    </ShoppingCartProvider>
+  );
 }
 
-export default App
+export default App;
